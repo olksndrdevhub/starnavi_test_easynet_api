@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.http.response import HttpResponse
 from django.contrib.auth.models import User
+
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .serializers import UserSerializer, PostSerializer
 from .models import Post
@@ -46,8 +49,40 @@ def like_unlike_post(request, id):
         post.like_post(user)
         serializer = PostSerializer(post)
         return Response(serializer.data)
-        
+
     elif user in post.likes.all():
         post.unlike_post(user)
         serializer = PostSerializer(post)
         return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def analitics(request):
+
+    likes_per_post = []
+    total = []
+    posts = Post.objects.all()
+
+    # get date params from request if it exist
+    if request.GET.get('from_date') and request.GET.get('to_date'):
+        from_date = request.GET.get('from_date')
+        to_date = request.GET.get('to_date')
+        posts = Post.objects.filter(created__range=[from_date, to_date])
+    
+
+
+    for post in posts:
+        likes_per_post.append({str(post.created)+' '+post.title:post.likes.count()})
+        total.append(post.likes.count())
+    
+    sum_of_likes = sum(total)
+
+    # return total count of likes for queryset 
+    # and likes for every post in queryset with date when post was created
+    analitics = {
+        'Total likes': sum_of_likes,
+        'Likes per post': likes_per_post
+    }
+
+    return Response(analitics)

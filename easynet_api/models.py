@@ -2,6 +2,7 @@ import re
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+from datetime import date
 
 class Post(models.Model):
 
@@ -13,10 +14,10 @@ class Post(models.Model):
     body = models.CharField(verbose_name='Post body', max_length=1000)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Author', on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, related_name='post_like', blank=True)
-    creating_datetime = models.DateTimeField(verbose_name='Created', auto_now_add=True)
+    created = models.DateField(verbose_name='Created', default=date.today)
 
     def __str__(self):
-        return f'Post: {self.title}, author: {self.author}, created: {self.creating_datetime}'
+        return f'Post: {self.title}, created: {self.created}'
 
     def likes_count(self):
         return self.likes.count()
