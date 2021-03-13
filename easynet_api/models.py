@@ -29,6 +29,6 @@ class Post(models.Model):
         self.likes.add(user)
         return self.likes_count()
 
-    def set_author(self, author_id):
-        self.author = author_id
-        return self.author
+    def unlike_post(self, user):
+        self.likes.remove(user)
+        return self.likes_count()

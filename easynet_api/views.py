@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http.response import HttpResponse
 from django.contrib.auth.models import User
 from rest_framework import viewsets, permissions
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
 
 from .serializers import UserSerializer, PostSerializer
 from .models import Post
@@ -26,11 +28,26 @@ class PostViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
+
 def index(request):
     return HttpResponse('<h1>Go to <a href="/api/v1/">/api/v1/</a> URI</h1>')
 
 
-def like_post(request):
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def like_unlike_post(request, id):
+
     user = request.user
-    print(request)
-    return HttpResponse('hi')
+    post = Post.objects.get(id=id)
+    serializer = PostSerializer(post)
+
+    if user not in post.likes.all():
+        post.like_post(user)
+        serializer = PostSerializer(post)
+        return Response(serializer.data)
+        
+    elif user in post.likes.all():
+        post.unlike_post(user)
+        serializer = PostSerializer(post)
+        return Response(serializer.data)
