@@ -5,7 +5,7 @@ from rest_framework import viewsets, permissions
 
 from .serializers import UserSerializer, PostSerializer
 from .models import Post
-from .permissions import IsAuthenticatedOrCreate
+from .permissions import IsAdminOrCreateOnly
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -13,7 +13,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticatedOrCreate]
+    permission_classes = [IsAdminOrCreateOnly]
 
 
 
@@ -28,3 +28,9 @@ class PostViewSet(viewsets.ModelViewSet):
 
 def index(request):
     return HttpResponse('<h1>Go to <a href="/api/v1/">/api/v1/</a> URI</h1>')
+
+
+def like_post(request):
+    user = request.user
+    print(request)
+    return HttpResponse('hi')

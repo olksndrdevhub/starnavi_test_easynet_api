@@ -4,7 +4,7 @@ from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 SAFE_METHODS = ['POST']
 
-class IsAuthenticatedOrCreate(BasePermission):
+class IsAdminOrCreateOnly(BasePermission):
     """
     Perrmisson to allow create new account but not allow 
     non-admin users get the users list
