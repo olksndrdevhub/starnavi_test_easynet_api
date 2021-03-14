@@ -26,7 +26,7 @@
 
 ## Authentication:  
 
-For Authentication you need to get JWT Access/Refresh Tokens. Of course you need to have previosly registered account [go to create account endpoint](#creating_account). You need send POST request to `http://localhost:8000/api/v1/token/` endpoint with your username and password in request body:  
+For Authentication you need to get JWT Access/Refresh Tokens. Of course you need to have previosly registered account ([go to 'creating account' endpoint](#creating_account)). You need send POST request to `http://localhost:8000/api/v1/token/` endpoint with your username and password in request body:  
 <pre>
 {
     "username":"your_username",
