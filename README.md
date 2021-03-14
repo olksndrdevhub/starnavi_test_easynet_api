@@ -42,7 +42,7 @@ This will return for you Access Token(AT) and Refresh Token(RT). AT will live 20
     "refresh":"your_refresh_token"
 }
 </pre>  
-After that you receive new AC. Your RT will live only 1 day, if RT is dead - you need to get JWT Access/Refresh Tokens again (see above).
+After that you receive new AT. Your RT will live only 1 day, if RT is dead - you need to get JWT Access/Refresh Tokens again (see above).
 
 <b>If you need to authentication in Postman go to Authorization tab(1), select Type as Bearer Token(2) and paste your AT in field(3).</b>  
 
