@@ -4,7 +4,8 @@ Django==3.1.7
 django-filter==2.4.0
 djangorestframework==3.12.2
 djangorestframework-simplejwt==4.6.0
-PyJWT==2.0.1
+httpie-jwt-auth==0.4.0
+PyJWT==1.7.1
 pytz==2021.1
 sqlparse==0.4.1
 unrpa==2.3.0

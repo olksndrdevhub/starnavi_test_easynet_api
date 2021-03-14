@@ -1,11 +1,11 @@
-from enum import auto
-from django.contrib.auth.models import User
-from django.db.models import fields
+from django.contrib.auth import get_user_model
 
 from rest_framework import serializers
 
 from . import models
 
+
+User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
 

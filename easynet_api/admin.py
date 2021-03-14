@@ -1,7 +1,8 @@
 from django.contrib import admin
 
-from .models import Post
+from .models import Post, User
 
 # Register your models here.
 
-admin.site.register(Post)
+admin.site.register(Post, admin.ModelAdmin)
+admin.site.register(User, admin.ModelAdmin)

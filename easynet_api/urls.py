@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.urls import path, include
 
 from rest_framework import routers
@@ -17,7 +16,8 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
 
     path('api/v1/posts/<int:id>/like/', views.like_unlike_post, name='like_post'),
-    path('api/v1/analitics/likes/', views.analitics, name='analitics'),
+    path('api/v1/analitics/likes/', views.analitics_likes, name='analitics_likes'),
+    path('api/v1/analitics/users/', views.analitics_users, name='analitics_users'),
     
     path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

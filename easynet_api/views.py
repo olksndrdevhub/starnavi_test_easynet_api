@@ -1,16 +1,19 @@
 from django.shortcuts import render
 from django.http.response import HttpResponse
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-
-from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.serializers import Serializer
 
 from .serializers import UserSerializer, PostSerializer
 from .models import Post
 from .permissions import IsAdminOrCreateOnly
+
+
+User = get_user_model()
+
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -56,9 +59,10 @@ def like_unlike_post(request, id):
         return Response(serializer.data)
 
 
+
 @api_view(['GET'])
 @permission_classes([permissions.AllowAny])
-def analitics(request):
+def analitics_likes(request):
 
     likes_per_post = []
     total = []
@@ -70,8 +74,6 @@ def analitics(request):
         to_date = request.GET.get('to_date')
         posts = Post.objects.filter(created__range=[from_date, to_date])
     
-
-
     for post in posts:
         likes_per_post.append({str(post.created)+' '+post.title:post.likes.count()})
         total.append(post.likes.count())
@@ -84,5 +86,22 @@ def analitics(request):
         'Total likes': sum_of_likes,
         'Likes per post': likes_per_post
     }
+
+    return Response(analitics)
+
+
+
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def analitics_users(request):
+
+    analitics = []
+
+    for user in User.objects.all():
+        analitics.append({user.username:{
+            'Last Login': user.last_login,
+            'Last Request Time': user.last_request_time,
+            'Date Joined': user.date_joined
+        }})
 
     return Response(analitics)

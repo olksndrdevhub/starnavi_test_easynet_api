@@ -1,8 +1,13 @@
 import re
 from django.db import models
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser, User
 from datetime import date
+
+
+class User(AbstractUser):
+    last_request_time = models.CharField(verbose_name='last request time', max_length=100)
+
 
 class Post(models.Model):
 
