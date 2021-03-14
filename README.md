@@ -11,13 +11,16 @@
 3. Navigate to project folder:  
 `cd starnavi_test_easynet_api/`
 
-4. Make migrate:  
+4. Install requirements:  
+`pip install -r requirements.txt`
+
+5. Make migrate:  
 `python manage.py migrate`  
 
-5. Create superuser:  
+6. Create superuser:  
 `python manage.py createsuperuser`
 
-6. Run server:  
+7. Run server:  
 `python manage.py runserver`
 
 <hr>
