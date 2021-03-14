@@ -8,7 +8,7 @@
 
 2. Activate your virtualvenv ("`conda activate <venv_name>`" or some other what you use)  
 
-3. Move to project folder:  
+3. Navigate to project folder:  
 `cd starnavi_test_easynet_api/`
 
 4. Make migrate:  
