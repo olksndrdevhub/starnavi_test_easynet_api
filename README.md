@@ -26,7 +26,7 @@
 
 ## Authentication:  
 
-For Authentication you need to get JWT Access/Refresh Tokens. Of course you need to have previosly registered account. You need send POST request to `http://localhost:8000/api/v1/token/` endpoint with your username and password in request body:  
+For Authentication you need to get JWT Access/Refresh Tokens. Of course you need to have previosly registered account [go to create account endpoint](#creating_account). You need send POST request to `http://localhost:8000/api/v1/token/` endpoint with your username and password in request body:  
 <pre>
 {
     "username":"your_username",
@@ -53,7 +53,7 @@ After that you receive new AC. Your RT will live only 1 day, if RT is dead - you
 `http://localhost:8000/api/v1/` - Index endpoint of API. Return links to Users view and Posts view. Only GET method allowed.  
 <hr>
 
-`http://localhost:8000/api/v1/users/` - Users endpoint. Return list of users in GET request (only for user with superuser status(!)) or create new user in POST request. Require Authentication(!) for GET request. To create new user send POST request with `username`, `email`, and `password` in request body:
+`http://localhost:8000/api/v1/users/` - Users endpoint. <a name='creating_account'></a> Return list of users in GET request (only for user with superuser status(!)) or create new user in POST request. Require Authentication(!) for GET request. To create new user send POST request with `username`, `email`, and `password` in request body:
 <pre>
 {
     "username":"your_username",
